@@ -9,6 +9,7 @@ class Task extends Model
 {
     protected $fillable = [
         'task_id',
+        'user_id',
         'title',
         'description',
         'due_date'
@@ -18,4 +19,7 @@ class Task extends Model
     {
         return $this->belongsTo(User::class);
     }
+    protected $primaryKey = 'task_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 }
