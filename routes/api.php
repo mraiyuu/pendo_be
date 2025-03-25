@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 
 
@@ -16,5 +17,17 @@ Route::controller(UserController::class)
         Route::post('/loginUser', 'loginUser')->name('loginUser');
         Route::post('/logoutUser', 'logoutUser')->name('logoutUser');
         Route::post('/resetPassword', 'resetPassword')->name('resetPassword');
+
+    });
+
+Route::controller(TaskController::class)
+    ->prefix('/v1/pendo')
+    ->as('pendo')
+    ->group(function () {
+        Route::post('/createTask', 'createTask')->name('createTask');
+        Route::get('/getAllTask', 'getAllTask')->name('getAllTask');
+        Route::get('/getAllTasksForGuests', 'getAllTasksForGuests')->name('getAllTasksForGuests');
+        Route::patch('/updateTask', 'updateTask')->name('updateTask');
+        Route::delete('/deleteTask', 'deleteTask')->name('deleteTask');
 
     });

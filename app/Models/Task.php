@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'task_id',
+        'user_id',
         'title',
         'description',
         'due_date'
@@ -18,4 +21,7 @@ class Task extends Model
     {
         return $this->belongsTo(User::class);
     }
+    protected $primaryKey = 'task_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 }
