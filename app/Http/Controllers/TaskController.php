@@ -116,6 +116,36 @@ class TaskController extends Controller
         }
     }
 
+
+    public function getAllTasksForGuests(Request $request): JsonResponse
+    {
+        try {
+            $page = $request->input('page', 1);
+            $perPage = $request->input('per_page', 10);
+
+            $tasks = Task::orderBy('created_at', 'desc')
+                ->paginate($perPage, ['*'], 'page', $page);
+
+            return response()->json([
+                'responseCode' => 0,
+                'responseMessage' => 'Tasks retrieved successfully',
+                'tasks' => $tasks->items(),
+                'pagination' => [
+                    'current_page' => $tasks->currentPage(),
+                    'per_page' => $tasks->perPage(),
+                    'total_pages' => $tasks->lastPage(),
+                    'total_items' => $tasks->total()
+                ]
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'responseCode' => 1,
+                'errorMessage' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function updateTask(Request $request): JsonResponse
     {
         try {

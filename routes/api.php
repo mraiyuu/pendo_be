@@ -26,6 +26,7 @@ Route::controller(TaskController::class)
     ->group(function () {
         Route::post('/createTask', 'createTask')->name('createTask');
         Route::get('/getAllTask', 'getAllTask')->name('getAllTask');
+        Route::get('/getAllTasksForGuests', 'getAllTasksForGuests')->name('getAllTasksForGuests');
         Route::patch('/updateTask', 'updateTask')->name('updateTask');
         Route::delete('/deleteTask', 'deleteTask')->name('deleteTask');
 
